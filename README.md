@@ -27,9 +27,57 @@ To implement HASH ALGORITHM
 
 
 ## Program:
+```
+#include <stdio.h> 
+#include <string.h> 
+ 
+void generateSimpleDigest(const char *inputText, unsigned char *digest) 
+{ 
+    unsigned char tempVal = 0; 
+    for (int i = 0; inputText[i] != '\0'; i++) 
+    { 
+        tempVal = tempVal ^ inputText[i]; 
+        tempVal += inputText[i]; 
+    } 
+    *digest = tempVal; 
+} 
+ 
+int main() 
+{ 
+    char text[256]; 
+    unsigned char computedDigest; 
+    char userDigest[3]; 
+ 
+    printf ("Enter the input message: "); 
+    scanf("%s", text); 
+ 
+    generateSimpleDigest(text, &computedDigest); 
+ 
+    printf ("Generated Hash (in hex): %02x\n", computedDigest); 
+ 
+    printf ("Enter the received hash (in hex): "); 
+    scanf("%s", userDigest); 
+ 
+    unsigned int receivedDigestVal; 
+    sscanf(userDigest, "%02x", &receivedDigestVal); 
+ 
+    if (computedDigest == receivedDigestVal) 
+    { 
+        printf ("Hash valida on successful — message is intact.\n"); 
+    } 
+    else 
+    { 
+        printf ("Hash valida on failed — message has been modified.\n"); 
+    } 
+ 
+    return 0; 
+} 
+ 
 
+```
 
 ## Output:
+<img width="622" height="534" alt="image" src="https://github.com/user-attachments/assets/9868c13f-cfc1-4366-83ab-81fd80650aa9" />
 
 ## Result:
 The program is executed successfully.
